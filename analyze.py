@@ -1,20 +1,49 @@
 import json
 import numpy as np
 import pandas as pd
+import csv
 
 f=open("data/wnba_players.json")
+player_id = []
 data = json.load(f)
-for k,v in data.items():
-    print(k, v)
+#for k,v in data.items():
+    #print(k, v)
+#    player_id.append(v)
+
+#for i in data:
+ #   print(i, data[i])
 
 
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
+filename = "data/WNBA_rapm_possessions_2018.csv"
+fields = []
+rows = []
+  
+# reading csv file
+with open(filename, 'r') as csvfile:
+    # creating a csv reader object
+    csvreader = csv.reader(csvfile)
+      
+    # extracting field names through first row
+    fields = next(csvreader)
+  
+    # extracting each data row one by one
+    for row in csvreader:
+        rows.append(row)
+  
+    # get total number of rows
+    print("Total no. of rows: %d"%(csvreader.line_num))
+  
+# printing the field names
+print('Field names are:' + ', '.join(field for field in fields))
 
 
-possessions = pd.read_csv("data/rapm_possessions.csv")
-player_names = pd.read_csv("data/player_names.csv")
 
+
+#possessions = pd.read_csv("data/rapm_possessions.csv")
+#player_names = pd.read_csv("data/player_names.csv")
+"""
 def build_player_list(posessions):
     players = list(
         set(list(posessions['offensePlayer1Id'].unique()) + list(posessions['offensePlayer2Id'].unique()) + list(
@@ -81,4 +110,6 @@ def convert_to_matricies(possessions, name, players):
 
 #for i in data['players']:
  #   print(i)
+ """
+ 
  
