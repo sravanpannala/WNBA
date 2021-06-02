@@ -4,15 +4,16 @@ import pandas as pd
 
 f=open("data/wnba_players.json")
 data = json.load(f)
-
+for k,v in data.items():
+    print(k, v)
 
 
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
 
-possessions = pd.read_csv('data/rapm_possessions.csv')
-player_names = pd.read_csv('data/player_names.csv')
+possessions = pd.read_csv("data/rapm_possessions.csv")
+player_names = pd.read_csv("data/player_names.csv")
 
 def build_player_list(posessions):
     players = list(
@@ -77,8 +78,7 @@ def convert_to_matricies(possessions, name, players):
 
     # return matricies and possessions series
     return stint_X_rows, stint_Y_rows, possessions
-#for k,v in data.items():
-#    print(k, v)
+
 #for i in data['players']:
  #   print(i)
  
