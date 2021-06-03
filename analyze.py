@@ -3,6 +3,9 @@ import numpy as np
 import pandas as pd
 import csv
 
+
+
+
 f=open("data/wnba_players.json")
 player_id = []
 data = json.load(f)
@@ -12,7 +15,6 @@ data = json.load(f)
 
 #for i in data:
  #   print(i, data[i])
-
 
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
@@ -33,13 +35,37 @@ with open(filename, 'r') as csvfile:
         rows.append(row)
   
     # get total number of rows
-    print("Total no. of rows: %d"%(csvreader.line_num))
+    #print("Total no. of rows: %d"%(csvreader.line_num))
   
 # printing the field names
 print('Field names are:' + ', '.join(field for field in fields))
+key_list=list(data.keys())
+val_list=list(data.values())
+print(val_list)
+#print(res)
+#print(key_list)
 
 
+players_id = []
+players_name = []
+i=1
+j=1
+#players_id.append(return_key("Ally Mallott"))
 
+
+while i<=5:
+    name = input("Enter offensive player "+str(i)+" name ")
+    res = val_list.index(name)
+    players_id.append(key_list[res])
+    i=i+1
+
+while j<=5:
+    name = input("Enter defensive player "+str(i)+" name ")
+    res = val_list.index(name)
+    players_id.append(key_list[res])
+    i=i+1
+
+print(players_id)
 
 #possessions = pd.read_csv("data/rapm_possessions.csv")
 #player_names = pd.read_csv("data/player_names.csv")
