@@ -36,17 +36,17 @@ with open(filename, 'r') as csvfile:
   
 # printing the field names
 #print('Field names are:' + ', '.join(field for field in fields))
-key_list=list(data.keys())
-val_list=list(data.values())
+#key_list=list(data.keys())
+#val_list=list(data.values())
 #rint(val_list)
 #print(res)
 #print(key_list)
 
 
-players_id = []
-players_name = []
-i=1
-j=1
+#players_id = []
+#players_name = []
+#i=1
+#j=1
 #players_id.append(return_key("Ally Mallott"))
 
 """
@@ -64,8 +64,6 @@ while j<=5:
 
 print(players_id)
 """
-
-
 possessions = pd.read_csv("data/WNBA_rapm_possessions_2018.csv",usecols = ['off1','off2','off3','off4','off5','def1','def2','def3','def4','def5','Points'])
 print(type(possessions))
 #player_names = pd.read_csv("data/player_names.csv")
@@ -124,9 +122,9 @@ def convert_to_matricies(possessions, name, players):
     stints_x_base = possessions.to_numpy()
     # Apply our mapping function to the numpy matrix
     stint_X_rows = np.apply_along_axis(map_players, 1, stints_x_base, players)
-
+    print(name)
     # Convert the column of target values into a numpy matrix#
-    stint_Y_rows = possessions.to_numpy([name])
+    stint_Y_rows = possessions.to_numpy(name)
 
     # extract the possessions as a pandas Series
     possessions = possessions['possessions']
@@ -135,7 +133,7 @@ def convert_to_matricies(possessions, name, players):
     return stint_X_rows, stint_Y_rows, possessions
 
 
-train_x, train_y, possessions_raw = convert_to_matricies(possessions, 'PointsPerPossession', player_list)
+train_x, train_y, possessions_raw = convert_to_matricies(possessions, 'Points', player_list)
 
 
 
@@ -180,5 +178,26 @@ def calculate_rapm(train_x, train_y, possessions, lambdas, name, players):
 #for i in data['players']:
  #   print(i)
  
- 
- 
+ # Convert lambda value to alpha needed for ridge CV
+def lambda_to_alpha(lambda_value, samples):
+    return (lambda_value * samples) / 2.0
+
+# Convert RidgeCV alpha back into a lambda value
+def alpha_to_lambda(alpha_value, samples):
+    return (alpha_value * 2.0) / samples
+
+lambdas_rapm = [.01, .05, .1]
+
+
+results, intercept = calculate_rapm(train_x, train_y, possessions_raw, lambdas_rapm, 'RAPM', player_list)
+
+
+results = np.round(results, decimals=2)
+
+
+results = results.reindex_axis(sorted(results.columns), axis=1)
+
+results = player_names.merge(results, how='inner', on='playerId')
+
+results.to_csv('data/rapm.csv')
+print(results)
