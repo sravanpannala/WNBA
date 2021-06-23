@@ -6,13 +6,14 @@ from dash_table import DataTable
 import sys
 import pandas as pd
 
-df = pd.read_csv('data\WNBA_RAPM.csv')
+df = pd.read_csv('WNBA_RAPM.csv')
 dff = df.copy()
 yr = 2020
 dff=dff[dff['Year']==yr]
 
 # App layout
 app = dash.Dash(__name__, prevent_initial_callbacks=True) # this was introduced in Dash version 1.12.0
+app.title = 'WNBA Stats'
 server = app.server
 # Sorting operators (https://dash.plotly.com/datatable/filtering)
 def table_type(df_column):
