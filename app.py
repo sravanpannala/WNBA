@@ -29,7 +29,7 @@ def table_type(df_column):
 app.layout = html.Div([
     html.H1("WNBA RAPM", style={'text-align': 'center'}),
     dcc.Markdown('-Made by [Sravan Pannala] (http://www.twitter.com/SravanNBA/), '
-     '[Ryan Ramesh](http://www.twitter.com/burner_celtics/) and '
+     '[Roger Ramesh](http://www.twitter.com/burner_celtics/) and '
      '[Neema Djavadzadeh](http://www.twitter.com/findingneema23/)'
      , style={'text-align': 'right',"margin-right": "100px"}
     ),
