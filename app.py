@@ -28,7 +28,7 @@ def table_type(df_column):
 
 app.layout = html.Div([
     html.H1("WNBA RAPM", style={'text-align': 'center'}),
-    html.H3("Select Season", style={'text-align': 'left'}),
+    html.H3("Select Season", style={'text-align': 'left',"margin-left": "100px"}),
     dcc.Dropdown(id="slct_year",
                 options=[
                     {"label": "2018", "value": 2018},
@@ -36,24 +36,45 @@ app.layout = html.Div([
                     {"label": "2020", "value": 2020}],
                 multi=False,
                 value=2020,
-                style={'width': "40%"}
+                style={'width': "40%","margin-left": "50px"}
                 ),
     html.Br(),
-    DataTable(id='table',
-        columns=[{"name": i, "id": i, 'type':table_type(dff[i])} for i in dff.columns],
-        style_header={
-        'backgroundColor': '#ff5c33',
-        'fontWeight': 'bold'
-        },
-        sort_action="native",       # enables data to be sorted per-column by user or not ('none')
-        sort_mode="single",         # sort across 'multi' or 'single' columns}
-        page_current=0,             # page number that user is on
-        page_size=15,                # number of rows visible per page
-        filter_action="native",
-        style_cell={'maxWidth': '400px', 'whiteSpace': 'normal','textAlign':'center'},
-        # fill_width=False,
-        data=dff.to_dict(orient='records')
-    ),
+    html.Div([
+        DataTable(id='table',
+            columns=[{"name": i, "id": i, 'type':table_type(dff[i])} for i in dff.columns],
+            style_header={
+            'backgroundColor': '#ff5c33',
+            'fontWeight': 'bold'
+            },
+            sort_action="native",       # enables data to be sorted per-column by user or not ('none')
+            sort_mode="single",         # sort across 'multi' or 'single' columns}
+            page_current=0,             # page number that user is on
+            page_size=15,                # number of rows visible per page
+            filter_action="native",
+            style_cell={'minWidth': '70px','maxWidth': '200px', 
+                'whiteSpace': 'normal','textAlign':'center'},
+            style_cell_conditional=[    # align text columns to left. By default they are aligned to right
+            {
+                'if': {'column_id': 'Player Name'},
+                'textAlign': 'left','minWidth': '100px','backgroundColor':'#ffe6b3'
+            },
+            {
+                'if': {'column_id': 'RAPM Rank'},
+                'maxWidth': '70px','backgroundColor':'#ffe6b3'
+            },
+            {
+                'if': {'column_id': 'ORAPM Rank'},
+                'maxWidth': '70px','backgroundColor':'#ffe6b3'
+            },
+            {
+                'if': {'column_id': 'DRAPM Rank'},
+                'maxWidth': '70px','backgroundColor':'#ffe6b3'
+            },
+            ],
+            # fill_width=False,
+            data=dff.to_dict(orient='records')
+        )],
+        style={"margin-left": "100px","margin-right": "100px"}),
 ])
 
 @app.callback(Output('table', 'data'),
