@@ -5,8 +5,11 @@ from dash.dependencies import Input, Output
 from dash_table import DataTable
 import sys
 import pandas as pd
+import pathlib
 
-df = pd.read_csv('WNBA_RAPM.csv')
+PATH = pathlib.Path(__file__)
+DATA_PATH = PATH.joinpath("../data").resolve()
+df = pd.read_csv(DATA_PATH.joinpath("WNBA_RAPM.csv"))  
 dff = df.copy()
 yr = 2020
 dff=dff[dff['Year']==yr]
@@ -80,6 +83,7 @@ app.layout = html.Div([
             },
             ],
             # fill_width=False,
+            export_format="csv",
             data=dff.to_dict(orient='records')
         )],
         style={"margin-left": "100px","margin-right": "100px"}),
