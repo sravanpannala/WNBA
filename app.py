@@ -20,6 +20,7 @@ app = dash.Dash(__name__,external_stylesheets=external_stylesheets,
                 prevent_initial_callbacks=True)
 app.title = 'WNBA Stats'
 server = app.server
+
 # Sorting operators (https://dash.plotly.com/datatable/filtering)
 def table_type(df_column):
     # Note - this only works with Pandas >= 1.0.0
@@ -32,6 +33,7 @@ def table_type(df_column):
     else:
         return 'numeric'
 
+
 app.layout = html.Div([
     html.H1("WNBA RAPM", style={'text-align': 'center'}),
     dcc.Markdown('-Made by [Sravan Pannala] (http://www.twitter.com/SravanNBA/), '
@@ -39,6 +41,9 @@ app.layout = html.Div([
      '[Neema Djavadzadeh](http://www.twitter.com/findingneema23/)'
      , style={'text-align': 'right',"margin-right": "100px"}
     ),
+    
+    html.Div(html.Img(src=app.get_asset_url('wnbalog.png'), style={"height":'10%', "width":"10%", "margin-left": "65px"})),
+
     html.H3("Select Season", style={'text-align': 'left',"margin-left": "100px"}),
     dcc.Dropdown(id="slct_year",
                 options=[
