@@ -34,6 +34,7 @@ def table_type(df_column):
     else:
         return 'numeric'
 
+
 #nav_item = dbc.NavItem(dbc.NavLink(brand = "Link", href="#"))
 default = dbc.NavbarSimple(
         brand= "Home",
@@ -43,9 +44,18 @@ default = dbc.NavbarSimple(
         
     )
 
+dashboard = dbc.Navbar(
+    [
+        dbc.Col(html.Img(src=app.get_asset_url('clear_wnbalog.png'), height="30px")),
+        #dbc.Col(dbc.Input(type="search", placeholder="Search here")),
+        
+    ],
+    color="dark",
+    dark=True,
+)
 
 app.layout = html.Div([
-    default,html.H1("WNBA RAPM", style={'text-align': 'center'}),
+    dashboard,html.H1("WNBA RAPM", style={'text-align': 'center'}),
     dcc.Markdown('-Made by [Sravan Pannala] (http://www.twitter.com/SravanNBA/), '
      '[Roger Ramesh]() and '
      '[Neema Djavadzadeh](http://www.twitter.com/findingneema23/)'
@@ -54,7 +64,7 @@ app.layout = html.Div([
     
     
     
-    html.Div(html.Img(src=app.get_asset_url('wnbalog.png'), style={"height":'10%', "width":"10%", "margin-left": "65px"})),
+    #html.Div(html.Img(src=app.get_asset_url('wnbalog.png'), style={"height":'10%', "width":"10%", "margin-left": "65px"})),
     
     html.H3("Select Season", style={'text-align': 'left',"margin-left": "100px",'font-size':'16px'}),
     dcc.Dropdown(id="slct_year",
