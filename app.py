@@ -46,7 +46,7 @@ default = dbc.NavbarSimple(
 
 dashboard = dbc.Navbar(
     [
-        dbc.Col(html.Img(src=app.get_asset_url('clear_wnbalog.png'), height="30px")),
+        dbc.Col(html.Img(src=app.get_asset_url('clear_wnbalog.png'), style={"height":"45px"})),
         #dbc.Col(dbc.Input(type="search", placeholder="Search here")),
         
     ],
