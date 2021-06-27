@@ -2,6 +2,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 from dash_table import DataTable
 import sys
 import pandas as pd
@@ -15,7 +16,7 @@ yr = 2020
 dff=dff[dff['Year']==yr]
 
 # App layout
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 app = dash.Dash(__name__,external_stylesheets=external_stylesheets,
                 prevent_initial_callbacks=True)
 app.title = 'WNBA Stats'
@@ -33,18 +34,29 @@ def table_type(df_column):
     else:
         return 'numeric'
 
+#nav_item = dbc.NavItem(dbc.NavLink(brand = "Link", href="#"))
+default = dbc.NavbarSimple(
+        brand= "Home",
+        brand_href="#",
+        sticky="top",
+        className="mb-5",
+        
+    )
+
 
 app.layout = html.Div([
-    html.H1("WNBA RAPM", style={'text-align': 'center'}),
+    default,html.H1("WNBA RAPM", style={'text-align': 'center'}),
     dcc.Markdown('-Made by [Sravan Pannala] (http://www.twitter.com/SravanNBA/), '
-     '[Roger Ramesh](http://www.twitter.com/burner_celtics/) and '
+     '[Roger Ramesh]() and '
      '[Neema Djavadzadeh](http://www.twitter.com/findingneema23/)'
-     , style={'text-align': 'right',"margin-right": "100px"}
+     , style={'text-align': 'right',"margin-right": "100px",'font-size':'22px'}
     ),
     
+    
+    
     html.Div(html.Img(src=app.get_asset_url('wnbalog.png'), style={"height":'10%', "width":"10%", "margin-left": "65px"})),
-
-    html.H3("Select Season", style={'text-align': 'left',"margin-left": "100px"}),
+    
+    html.H3("Select Season", style={'text-align': 'left',"margin-left": "100px",'font-size':'16px'}),
     dcc.Dropdown(id="slct_year",
                 options=[
                     {"label": "2018", "value": 2018},
@@ -52,7 +64,7 @@ app.layout = html.Div([
                     {"label": "2020", "value": 2020}],
                 multi=False,
                 value=2020,
-                style={'width': "40%","margin-left": "50px"}
+                style={'width': "40%","margin-left": "50px",'font-size':'14px'}
                 ),
     html.Br(),
     html.Div([
@@ -91,7 +103,7 @@ app.layout = html.Div([
             export_format="csv",
             data=dff.to_dict(orient='records')
         )],
-        style={"margin-left": "100px","margin-right": "100px"}),
+        style={"margin-left": "100px","margin-right": "100px", 'font-size':'18px'}),
 ])
 
 @app.callback(Output('table', 'data'),
