@@ -46,12 +46,13 @@ default = dbc.NavbarSimple(
 
 dashboard = dbc.Navbar(
     [
-        dbc.Col(html.Img(src=app.get_asset_url('clear_wnbalog.png'), style={"height":"45px"})),
-        #dbc.Col(dbc.Input(type="search", placeholder="Search here")),
-        
+        dbc.Col(html.Img(src=app.get_asset_url('clear_wnbalog.png'), style={"height":"55px"})),
+        dbc.NavLink("RAPM", href="", style={'font-size':'20px',"margin-right": "3700px"}),
     ],
     color="dark",
     dark=True,
+    style ={"height":"65px"}
+    
 )
 
 app.layout = html.Div([
